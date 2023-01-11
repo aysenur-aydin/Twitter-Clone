@@ -1,7 +1,9 @@
 # Twimba(Twitter-Clone)
 <b>The Twimba project's aim is to render tweets and replies from hardcoded data.</b>
 
-In this project I accomlished lots of methods and concept. Here is a list of them:
+![Twimba](https://user-images.githubusercontent.com/106872138/211902039-b0144a05-e32d-4bfe-a887-c54158db87ba.gif)
+
+In this project, I accomplished new methods and concepts. Here is a list of them:
 
 * `<textarea>` HTML element
   * Used for multi-line text input
@@ -27,7 +29,7 @@ There are some strech goals for improvement for this project:
 
 and customize it your own way.
 
-*Checkboxes will be checked once a task has been completed.)
+*Checkboxes will be checked once a task has been completed.
 
 -------
 This project was accomplished with <a href="https://scrimba.com/">Scrimba</a> as a course project in the Frontend Developer Career Path.

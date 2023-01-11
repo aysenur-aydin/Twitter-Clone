@@ -21,9 +21,9 @@ In this project I accomlished lots of methods and concept. Here is a list of the
 
 ## Strech Goals
 There are some strech goals for improvement for this project:
-1.  Add the ability to reply to a specific tweet <input type="checkbox" disabled>*
-2. Save tweets, likes and retweets to localStorage <input type="checkbox" disabled>
-3. Allow a user to delete a tweet <input type="checkbox" disabled>
+1.  Add the ability to reply to a specific tweet :white_large_square: * <!-- when checkhed :white_check_mark: -->
+2. Save tweets, likes and retweets to localStorage :white_large_square: 
+3. Allow a user to delete a tweet :white_large_square:
 
 and customize it your own way.
 

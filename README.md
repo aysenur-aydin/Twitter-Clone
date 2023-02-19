@@ -23,7 +23,7 @@ In this project, I accomplished new methods and concepts. Here is a list of them
 
 ## Strech Goals
 There are some strech goals for improvement for this project:
-1.  Add the ability to reply to a specific tweet :white_large_square: * <!-- when checkhed :white_check_mark: -->
+1.  Add the ability to reply to a specific tweet :white_check_mark: * <!-- when checkhed :white_check_mark: -->
 2. Save tweets, likes and retweets to localStorage :white_large_square: 
 3. Allow a user to delete a tweet :white_large_square:
 

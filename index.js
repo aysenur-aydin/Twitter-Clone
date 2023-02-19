@@ -1,7 +1,7 @@
 import { tweetsData } from './data.js'
 import { v4 as uuidv4 } from 'https://jspm.dev/uuid';
 
-document.addEventListener('click', function (e) {
+document.addEventListener('click', e => {
     if (e.target.dataset.like) {
         handleLikeClick(e.target.dataset.like)
     }
@@ -14,10 +14,13 @@ document.addEventListener('click', function (e) {
     else if (e.target.id === 'tweet-btn') {
         handleTweetBtnClick()
     }
+    else if (e.target.dataset.newReply) {
+        handleReplyBtnClick(e.target.dataset.newReply)
+    }
 })
 
 function handleLikeClick(tweetId) {
-    const targetTweetObj = tweetsData.filter(function (tweet) {
+    const targetTweetObj = tweetsData.filter(tweet => {
         return tweet.uuid === tweetId
     })[0]
 
@@ -32,7 +35,7 @@ function handleLikeClick(tweetId) {
 }
 
 function handleRetweetClick(tweetId) {
-    const targetTweetObj = tweetsData.filter(function (tweet) {
+    const targetTweetObj = tweetsData.filter(tweet => {
         return tweet.uuid === tweetId
     })[0]
 
@@ -71,10 +74,26 @@ function handleTweetBtnClick() {
 
 }
 
+function handleReplyBtnClick(newReplyId) {
+    const replyInput = document.getElementById(`reply-${newReplyId}`)
+
+    const selectedTweet = tweetsData.filter(tweet => tweet.uuid === newReplyId)[0]
+
+    if (replyInput.value) {
+        selectedTweet.replies.push({
+            handle: `@Scrimba`,
+            profilePic: `images/scrimbalogo.png`,
+            tweetText: replyInput.value,
+        })
+        render()
+        replyInput.value = ''
+    }
+}
+
 function getFeedHtml() {
     let feedHtml = ``
 
-    tweetsData.forEach(function (tweet) {
+    tweetsData.forEach(tweet => {
 
         let likeIconClass = ''
 
@@ -91,56 +110,66 @@ function getFeedHtml() {
         let repliesHtml = ''
 
         if (tweet.replies.length > 0) {
-            tweet.replies.forEach(function (reply) {
+            tweet.replies.forEach(reply => {
                 repliesHtml += `
-<div class="tweet-reply">
-    <div class="tweet-inner">
-        <img src="${reply.profilePic}" class="profile-pic">
-            <div>
-                <p class="handle">${reply.handle}</p>
-                <p class="tweet-text">${reply.tweetText}</p>
-            </div>
-        </div>
-</div>
-`
+                    <div class="tweet-reply">
+                        <div class="tweet-inner">
+                            <img src="${reply.profilePic}" class="profile-pic">
+                                <div class="reply-details">
+                                    <p class="handle">${reply.handle}</p>
+                                    <p class="tweet-text">${reply.tweetText}</p>
+                                </div>
+                            </div>
+                    </div>
+                `
             })
         }
 
 
         feedHtml += `
-<div class="tweet">
-    <div class="tweet-inner">
-        <img src="${tweet.profilePic}" class="profile-pic">
-        <div>
-            <p class="handle">${tweet.handle}</p>
-            <p class="tweet-text">${tweet.tweetText}</p>
-            <div class="tweet-details">
-                <span class="tweet-detail">
-                    <i class="fa-regular fa-comment-dots"
-                    data-reply="${tweet.uuid}"
-                    ></i>
-                    ${tweet.replies.length}
-                </span>
-                <span class="tweet-detail">
-                    <i class="fa-solid fa-heart ${likeIconClass}"
-                    data-like="${tweet.uuid}"
-                    ></i>
-                    ${tweet.likes}
-                </span>
-                <span class="tweet-detail">
-                    <i class="fa-solid fa-retweet ${retweetIconClass}"
-                    data-retweet="${tweet.uuid}"
-                    ></i>
-                    ${tweet.retweets}
-                </span>
-            </div>   
-        </div>            
-    </div>
-    <div class="hidden" id="replies-${tweet.uuid}">
-        ${repliesHtml}
-    </div>   
-</div>
-`
+            <div class="tweet">
+                <div class="tweet-inner">
+                    <img src="${tweet.profilePic}" class="profile-pic">
+                    <div>
+                        <p class="handle">${tweet.handle}</p>
+                        <p class="tweet-text">${tweet.tweetText}</p>
+                        <div class="tweet-details">
+                            <span class="tweet-detail">
+                                <i class="fa-regular fa-comment-dots"
+                                data-reply="${tweet.uuid}"
+                                ></i>
+                                ${tweet.replies.length}
+                            </span>
+                            <span class="tweet-detail">
+                                <i class="fa-solid fa-heart ${likeIconClass}"
+                                data-like="${tweet.uuid}"
+                                ></i>
+                                ${tweet.likes}
+                            </span>
+                            <span class="tweet-detail">
+                                <i class="fa-solid fa-retweet ${retweetIconClass}"
+                                data-retweet="${tweet.uuid}"
+                                ></i>
+                                ${tweet.retweets}
+                            </span>
+                        </div>   
+                    </div>            
+                </div>
+                <div class="hidden" id="replies-${tweet.uuid}">
+                    ${repliesHtml}
+                    <div class="tweet-reply">
+                        <div class="tweet-inner">
+                            <img src="images/scrimbalogo.png" class="profile-pic">
+                            <div class="reply-details">
+                                <p class="handle">@Scrimba</p>
+                                <textarea placeholder="Reply" id="reply-${tweet.uuid}"></textarea>
+                                <button id="reply-btn" data-new-reply="${tweet.uuid}">Reply</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>   
+            </div>
+        `
     })
     return feedHtml
 }
